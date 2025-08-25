@@ -1,24 +1,12 @@
-CREATE DATABASE IF NOT EXISTS event_booking
+CREATE DATABASE IF NOT EXISTS event_booking;
 USE event_booking;
 
 CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(255),
-    role ENUM('user','admin') DEFAULT 'user',
-    profile_image VARCHAR(255) DEFAULT 'default.png',
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    id INT AUTO_INCREMENT PRIMARY KEY
 );
 
 CREATE TABLE events (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    description TEXT,
-    event_date DATETIME NOT NULL,
-    capacity INT NOT NULL,
-    image VARCHAR(255) DEFAULT 'default_event.png',
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    id INT AUTO_INCREMENT PRIMARY KEY
 );
 
 CREATE TABLE rsvps (
