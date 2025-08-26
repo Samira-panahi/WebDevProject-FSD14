@@ -1,64 +1,62 @@
 <?php
-
 class Validation {
 
-    /**
-     * Validate event data
-     * 
-     * @param array $data $_POST data
-     * @param array|null $file $_FILES['image'] data
-     * @return array ['errors' => array, 'image' => string]
-     */
-    public static function validateEvent(array $data, $file = null): array {
+    public static function validateEvent($data, $file = null) {
         $errors = [];
-        $imageName = 'default_event.png';
 
-        // Title
+        // Title required
         $title = trim($data['title'] ?? '');
-        if ($title === '') {
+        if (!$title) {
             $errors[] = "Title is required.";
         }
 
-        // Event Date
+        // Event date must be in the future
         $eventDate = $data['event_date'] ?? '';
-        if (!$eventDate) {
-            $errors[] = "Event date is required.";
-        } elseif (strtotime($eventDate) <= time()) {
+        if (!$eventDate || strtotime($eventDate) <= time()) {
             $errors[] = "Event date must be in the future.";
         }
 
-        // Capacity
+        // Capacity must be greater than 0
         $capacity = isset($data['capacity']) ? (int)$data['capacity'] : 0;
         if ($capacity <= 0) {
             $errors[] = "Capacity must be greater than 0.";
         }
 
-        // Image
+        // Image validation
+        
+        $imageName = 'default_event.png';
         if ($file && !empty($file['name'])) {
             $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-            if (!in_array($ext, ['jpg','jpeg','png','gif'])) {
+            $allowed = ['jpg', 'jpeg', 'png', 'gif'];
+
+            if (!in_array($ext, $allowed)) {
                 $errors[] = "Invalid image format. Allowed: jpg, jpeg, png, gif.";
             } else {
-                // Generate unique filename and move uploaded file
+                // Generate unique image name
                 $imageName = time() . '_' . basename($file['name']);
                 $uploadDir = __DIR__ . '/../public/uploads/events/';
 
+                // Debug log the resolved path
+                error_log("Upload dir resolved to: " . $uploadDir);
+
                 if (!is_dir($uploadDir)) {
-                    mkdir($uploadDir, 0755, true);
+                    mkdir($uploadDir, 0775, true); // Create folder if not exists
+                    error_log("Upload dir created: " . $uploadDir);
                 }
 
+                // Debug log the file info
+                error_log("File info: " . print_r($file, true));
+
                 if (!move_uploaded_file($file['tmp_name'], $uploadDir . $imageName)) {
-                    $errors[] = "Failed to upload image.";
-                    $imageName = 'default_event.png';
+                    $errors[] = "Failed to upload image. File error code: " . $file['error'];
+                    error_log("move_uploaded_file failed. tmp_name: " . $file['tmp_name']);
+                } else {
+                    error_log("File uploaded successfully: " . $uploadDir . $imageName);
                 }
             }
         }
 
-        return [
-            'errors' => $errors,
-            'image'  => $imageName
-        ];
+
+        return ['errors' => $errors, 'image' => $imageName];
     }
 }
-
-?>

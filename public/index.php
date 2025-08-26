@@ -26,24 +26,42 @@ switch($page) {
         break;
 
     case 'create':
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $controller->create($_POST, $_FILES);
-            header("Location: ".BASE_URL."/index.php?page=list");
-            exit;
-        }
+        $errors = [];
         $event = ['title'=>'','description'=>'','event_date'=>'','capacity'=>'','image'=>'default_event.png'];
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $errors = $controller->create($_POST, $_FILES);
+
+            if (empty($errors)) {
+                header("Location: ".BASE_URL."/index.php?page=list");
+                exit;
+            }
+
+            $event = array_merge($event, $_POST);
+            if (!empty($_FILES['image']['name'])) {
+                $event['image'] = $_FILES['image']['name'];
+            }
+        }
+
         include '../app/view/events/create.php';
         break;
 
     case 'edit':
         if (!$id) die("Event ID required");
+
         $data = $controller->show($id);
         $event = $data['event'];
+        $errors = [];
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $controller->edit($id, $_POST, $_FILES);
-            header("Location: ".BASE_URL."/index.php?page=show&id=$id");
-            exit;
+            $errors = $controller->edit($id, $_POST, $_FILES);
+
+            if (empty($errors)) {
+                header("Location: ".BASE_URL."/index.php?page=show&id=$id");
+                exit;
+            }
         }
+
         include '../app/view/events/edit.php';
         break;
 

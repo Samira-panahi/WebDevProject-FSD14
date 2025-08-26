@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../model/Event.php';
+require_once __DIR__ . '/../helpers/Validation.php';
 
 class EventController {
     private $model;
@@ -19,27 +20,42 @@ class EventController {
         return ['event' => $event];
     }
 
+
     public function create($post, $files) {
-        $image = $this->handleImage($files['image'] ?? null);
+        $result = Validation::validateEvent($post, $files['image'] ?? null);
+        
+        if (!empty($result['errors'])) {
+            return $result['errors'];
+        }
+
         $data = [
             ':title' => $post['title'],
             ':description' => $post['description'],
             ':event_date' => $post['event_date'],
             ':capacity' => (int)$post['capacity'],
-            ':image' => $image
+            ':image' => $result['image']
         ];
+
         $this->model->create($data);
-        return true;
+        return [];
     }
 
-    public function edit($id, $post, $files) {
+
+        public function edit($id, $post, $files) {
         $event = $this->model->getById($id);
         if (!$event) die("Event not found");
 
-        $image = $event['image'];
-        if (!empty($files['image']['name'])) {
-            $image = $this->handleImage($files['image']);
+        // Validate event data and handle image
+        $result = Validation::validateEvent($post, $files['image'] ?? null);
+
+        if (!empty($result['errors'])) {
+            return $result['errors']; // flat array
         }
+
+        // Use uploaded image or keep existing
+        $image = $result['image'] === 'default_event.png' && !empty($event['image']) 
+                    ? $event['image'] 
+                    : $result['image'];
 
         $data = [
             ':title' => $post['title'],
@@ -50,7 +66,8 @@ class EventController {
         ];
 
         $this->model->update($id, $data);
-        return true;
+
+        return []; 
     }
 
     public function delete($id) {
