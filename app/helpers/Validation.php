@@ -4,25 +4,20 @@ class Validation {
     public static function validateEvent($data, $file = null) {
         $errors = [];
 
-        // Title required
         $title = trim($data['title'] ?? '');
         if (!$title) {
             $errors[] = "Title is required.";
         }
 
-        // Event date must be in the future
         $eventDate = $data['event_date'] ?? '';
         if (!$eventDate || strtotime($eventDate) <= time()) {
             $errors[] = "Event date must be in the future.";
         }
 
-        // Capacity must be greater than 0
         $capacity = isset($data['capacity']) ? (int)$data['capacity'] : 0;
         if ($capacity <= 0) {
             $errors[] = "Capacity must be greater than 0.";
         }
-
-        // Image validation
         
         $imageName = 'default_event.png';
         if ($file && !empty($file['name'])) {
@@ -34,7 +29,7 @@ class Validation {
             } else {
                 // Generate unique image name
                 $imageName = time() . '_' . basename($file['name']);
-                $uploadDir = __DIR__ . '/../public/uploads/events/';
+                $uploadDir = __DIR__ . '/../../public/uploads/events/';
 
                 // Debug log the resolved path
                 error_log("Upload dir resolved to: " . $uploadDir);
