@@ -16,7 +16,7 @@ CREATE TABLE events (
     title VARCHAR(255) NOT NULL,
     description TEXT,
     event_date DATETIME NOT NULL,
-    capacity INT NOT NULL,
+    capacity INT NOT NULL CHECK (capacity > 0),
     image VARCHAR(255) DEFAULT 'default_event.png',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
