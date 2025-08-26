@@ -37,7 +37,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Update Event</button>
-    <a href="<?= BASE_URL ?>/public/index.php?page=list" class="btn btn-secondary">Cancel</a>
+    <a href="<?= BASE_URL ?>/index.php?page=list" class="btn btn-secondary">Cancel</a>
 </form>
 
 <script>
