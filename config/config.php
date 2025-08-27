@@ -1,17 +1,9 @@
 <?php
 
-// define('BASE_URL', rtrim(dirname($_SERVER['PHP_SELF']), '/'));
-
-
-// define('DB_HOST', 'localhost');
-// define('DB_NAME', 'event_booking');
-// define('DB_USER', 'root');
-// define('DB_PASS', "123bel...");
-
 $host = "localhost";          
 $dbname = "event_booking";    
 $username = "root";
-$password = "123bel...";
+$password = "123jac..!";
  
  
 $options = [
