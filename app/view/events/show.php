@@ -1,15 +1,6 @@
 <?php
-include '../config.php';
-session_start();
-include __DIR__.'/../layout/header.php';
-?>
-
-<!-- event FEATURE (Belinda's part) -->
-<?php
-
 include __DIR__ . '/../layout/header.php'; ?>
 
- 
 <!-- event FEATURE (Belinda's part) -->
  
 <h1><?= htmlspecialchars($event['title']) ?></h1>
