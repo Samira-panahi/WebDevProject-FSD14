@@ -8,11 +8,11 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container">
-        <a class="navbar-brand" href="<?= BASE_URL ?>/index.php?page=list">Event Management</a>
+        <a class="navbar-brand" href="index.php?page=list">Event Management</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="<?= BASE_URL ?>/index.php?page=list">Events</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= BASE_URL ?>/index.php?page=create">Create Event</a></li>
+                <li class="nav-item"><a class="nav-link" href="event.php?page=list">Events</a></li>
+                <li class="nav-item"><a class="nav-link" href="event.php?page=create">Create Event</a></li>
             </ul>
         </div>
     </div>

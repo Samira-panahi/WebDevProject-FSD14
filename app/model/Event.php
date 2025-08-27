@@ -4,24 +4,20 @@ require_once __DIR__ . '/../../config/config.php';
 class Event {
     private $pdo;
 
-    public function __construct() {
-        $this->pdo = new PDO(
-            'mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset=utf8mb4',
-            DB_USER,
-            DB_PASS
-        );
-        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Accept PDO connection from config.php
+    public function __construct($pdo) {
+        $this->pdo = $pdo;
     }
 
     public function getAll() {
         $stmt = $this->pdo->query("SELECT * FROM events ORDER BY event_date ASC");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     public function getById($id) {
         $stmt = $this->pdo->prepare("SELECT * FROM events WHERE id = :id");
         $stmt->execute([':id' => $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch();
     }
 
     public function create($data) {
@@ -35,8 +31,9 @@ class Event {
     public function update($id, $data) {
         $data[':id'] = $id;
         $stmt = $this->pdo->prepare(
-            "UPDATE events SET title=:title, description=:description, 
-             event_date=:event_date, capacity=:capacity, image=:image
+            "UPDATE events 
+             SET title=:title, description=:description, event_date=:event_date, 
+                 capacity=:capacity, image=:image
              WHERE id=:id"
         );
         $stmt->execute($data);
@@ -47,4 +44,4 @@ class Event {
         $stmt->execute([':id' => $id]);
     }
 }
-?>
+

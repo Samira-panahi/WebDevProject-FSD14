@@ -1,4 +1,5 @@
 <?php
+
 class Validation {
 
     public static function validateEvent($data, $file = null) {

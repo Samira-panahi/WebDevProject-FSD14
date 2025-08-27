@@ -1,12 +1,13 @@
 <?php
+
 require_once __DIR__ . '/../model/Event.php';
 require_once __DIR__ . '/../helpers/Validation.php';
 
 class EventController {
     private $model;
 
-    public function __construct() {
-        $this->model = new Event();
+    public function __construct($pdo) {
+        $this->model = new Event($pdo);
     }
 
     public function index() {
