@@ -30,3 +30,16 @@ CREATE TABLE rsvps (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 );
+
+-- Modifications to users table (Elizabeth's part)
+
+ALTER TABLE users
+DROP COLUMN name,
+ADD COLUMN first_name VARCHAR(100) NOT NULL AFTER id,
+ADD COLUMN last_name VARCHAR(100) NOT NULL AFTER first_name,
+ADD COLUMN updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP AFTER created_at,
+CHANGE COLUMN profile_image profile_picture VARCHAR(255) DEFAULT 'default.png';
+
+ALTER TABLE users
+MODIFY COLUMN profile_picture VARCHAR(255) DEFAULT 'default.png';
+

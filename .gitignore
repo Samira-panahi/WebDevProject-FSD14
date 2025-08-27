@@ -1,0 +1,7 @@
+# =================================================================
+# SECURITY
+# =================================================================
+# Ignore configuration files that contain sensitive information
+# like database passwords, API keys, etc.
+
+/config/config.php
