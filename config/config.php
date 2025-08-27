@@ -4,7 +4,7 @@
 $host = "localhost";          
 $dbname = "event_booking";    
 $username = "root";
-$password = "manjoh-wejfos-4fEhvu";
+$password = "";
  
  
 $options = [
