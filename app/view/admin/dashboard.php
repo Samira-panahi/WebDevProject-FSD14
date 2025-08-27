@@ -1,5 +1,8 @@
 <?php
-require_once __DIR__ . '/../../Controllers/AdminController.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/project/app/controller/AdminController.php';
+
+
+
 session_start();
 
 // Middleware: ensure admin logged in

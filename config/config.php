@@ -1,11 +1,10 @@
 <?php
-<<<<<<< HEAD
 // Database connection for Event Booking App
 
 $host = "localhost";          
 $dbname = "event_booking";    
 $username = "root";
-$password = "";
+$password = "!Jac123456*";
 
 
 $options = [
@@ -24,14 +23,5 @@ try {
 } catch (PDOException $e) {
     die("Database connection failed: " . $e->getMessage());
 }
-=======
-
-define('BASE_URL', rtrim(dirname($_SERVER['PHP_SELF']), '/'));
-
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'event_booking');
-define('DB_USER', 'root');
-define('DB_PASS', "!jac123!");
 
 ?>
->>>>>>> main

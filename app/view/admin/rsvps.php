@@ -4,8 +4,8 @@
 // ADMIN RSVPS PAGE WITH PAGINATION (Samira's part)
 // ===============================
 
-require_once __DIR__ . '/../../config/config.php';
-require_once __DIR__ . '/../../Controllers/AdminController.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/project/config/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/project/app/controller/AdminController.php';
 session_start();
 
 // Middleware: ensure admin logged in
