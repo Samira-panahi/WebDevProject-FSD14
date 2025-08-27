@@ -1,13 +1,8 @@
 <?php
-include '../config.php';
+include __DIR__.'/../../../config/config.php';
 session_start();
 include __DIR__.'/../layout/header.php';
 ?>
-
-<!-- event FEATURE (Belinda's part) -->
-<?php
-
-include __DIR__ . '/../layout/header.php'; ?>
 
  
 <!-- event FEATURE (Belinda's part) -->

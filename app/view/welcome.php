@@ -16,11 +16,6 @@
                 Join our community to start exploring, or log in to manage your existing RSVPs and profile.
             </p>
 
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-4">
-                <a href="<?php echo BASE_URL; ?>/public/login.php" class="btn btn-primary btn-lg px-4 gap-3">Login</a>
-                <a href="<?php echo BASE_URL; ?>/public/register.php" class="btn btn-outline-secondary btn-lg px-4">Register</a>
-            </div>
-
         </div>
     </div>
 </div>

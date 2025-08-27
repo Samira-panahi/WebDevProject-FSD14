@@ -4,7 +4,7 @@
 $host = "localhost";          
 $dbname = "event_booking";    
 $username = "root";
-$password = "123jac..!";
+$password = "manjoh-wejfos-4fEhvu";
  
  
 $options = [
@@ -22,5 +22,16 @@ try {
 } catch (PDOException $e) {
     die("Database connection failed: " . $e->getMessage());
 }
+
+// =================================================================
+// DATABASE CONFIGURATION - ELIZABETH
+// =================================================================
+
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', ''); // Add your own password.
+define('DB_NAME', 'event_booking');
+define('BASE_URL', 'http://localhost/web_design_project_group1/WebDevProject-FSD14'); // Adjust BASE_URL as needed. This one is mine.
+
 
 ?>

@@ -44,7 +44,7 @@
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    <p>Already have an account? <a href="/login.php">Login here</a></p>
+                    <p>Already have an account? <a href="<?php echo BASE_URL; ?>/public/login.php">Login here</a></p>
                 </div>
             </div>
         </div>

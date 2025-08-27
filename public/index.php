@@ -24,5 +24,3 @@ require_once __DIR__ . '/../app/view/welcome.php';
 require_once __DIR__ . '/../app/view/layout/footer.php';
 
 ?>
-
-<h1>Home page</h1>
