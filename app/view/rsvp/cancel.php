@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../Controllers/RsvpController.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/project/app/controller/RsvpController.php';
 //require_once __DIR__ . '/../../Helpers/Session.php';
 
 session_start();
