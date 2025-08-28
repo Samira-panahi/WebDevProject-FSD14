@@ -9,7 +9,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         
-        <a class="navbar-brand" href="<?php echo BASE_URL; ?>">Menu</a>
+        <a class="navbar-brand" href="<?php echo BASE_URL; ?>/public/">Menu</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -23,19 +23,19 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Events</a>
+                    <a class="nav-link" href="<?= BASE_URL ?>/public/event.php?page=list">Events</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Create Event</a>
+                    <a class="nav-link" href="<?= BASE_URL ?>/public/event.php?page=create">Create Event</a>
                 </li>
 
                 <?php // Check if user is logged in by verifying session variable to display appropriate options in navbar ?>
-            <?php if (Session::has('user_id')): ?>
+            <?php if (isset($_SESSION['user_id'])): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo BASE_URL; ?>/public/profile.php">My Profile</a>
                     </li>
                     <!-- samira --- Admin Dashboard link for admin users only -->
-                    <?php if (Session::has('user_role') && Session::get('user_role') === 'admin'): ?>
+                    <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
                      <li class="nav-item">
                      <a class="nav-link" href="<?php echo BASE_URL; ?>/public/admin.php">Admin Dashboard</a>
                     </li>
