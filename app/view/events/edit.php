@@ -34,11 +34,11 @@
     <div class="mb-3">
         <label>Image</label>
         <input type="file" name="image" class="form-control" accept="image/*" onchange="previewImage(event)">
-        <img id="preview" src="<?= isset($event['image']) ? '/WebDevProject-FSD14/public/uploads/events/'.$event['image'] : '/WebDevProject-FSD14/public/uploads/events/default_event.png' ?>" class="img-thumbnail mt-2" width="150">
+        <img id="preview" src="<?= isset($event['image']) ? '<?= BASE_URL ?>/public/uploads/events/'.$event['image'] : '<?= BASE_URL ?>/public/uploads/events/default_event.png' ?>" class="img-thumbnail mt-2" width="150">
     </div>
 
     <button type="submit" class="btn btn-primary">Update Event</button>
-    <a href="/WebDevProject-FSD14/public/event.php?page=list" class="btn btn-secondary">Cancel</a>
+    <a href="<?= BASE_URL ?>/public/event.php?page=list" class="btn btn-secondary">Cancel</a>
 </form>
 
 <script>

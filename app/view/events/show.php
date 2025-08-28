@@ -9,7 +9,7 @@ include __DIR__ . '/../layout/header.php'; ?>
 <p><strong>Description:</strong></p>
 <p><?= nl2br(htmlspecialchars($event['description'])) ?></p>
 <p>
-    <img src="/WebDevProject-FSD14/public/uploads/events/<?= $event['image'] ?>" width="300" class="img-thumbnail">
+    <img src="<?= BASE_URL ?>/public/uploads/events/<?= $event['image'] ?>" width="300" class="img-thumbnail">
 </p>
 
 <a href="event.php?page=edit&id=<?= $event['id'] ?>" class="btn btn-warning">Edit</a>
