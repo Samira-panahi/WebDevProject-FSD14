@@ -1,3 +1,16 @@
+<?php
+//samira
+ // Start session if not already started
+
+// Redirect to login if not logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: " . BASE_URL . "/public/login.php");
+    exit;
+}
+?>
+
+
+
 <div class="container mt-5">
     <h2>My Profile</h2>
     <p>Welcome, <?php echo htmlspecialchars($user['first_name']); ?>!</p>
