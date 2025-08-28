@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/../model/Event.php';
 require_once __DIR__ . '/../helpers/Validation.php';
 
@@ -12,78 +11,84 @@ class EventController {
 
     public function index() {
         $events = $this->model->getAll();
-        return ['events' => $events];
+        include __DIR__ . '/../view/events/list.php';
     }
 
     public function show($id) {
+        if (!$id) die("Event ID required");
         $event = $this->model->getById($id);
         if (!$event) die("Event not found");
-        return ['event' => $event];
+        include __DIR__ . '/../view/events/show.php';
     }
 
+    public function create() {
+        $errors = [];
+        $event = ['title'=>'','description'=>'','event_date'=>'','capacity'=>'','image'=>'default_event.png'];
 
-    public function create($post, $files) {
-        $result = Validation::validateEvent($post, $files['image'] ?? null);
-        
-        if (!empty($result['errors'])) {
-            return $result['errors'];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $result = Validation::validateEvent($_POST, $_FILES['image'] ?? null);
+
+            if (empty($result['errors'])) {
+                $data = [
+                    ':title' => $_POST['title'],
+                    ':description' => $_POST['description'],
+                    ':event_date' => $_POST['event_date'],
+                    ':capacity' => (int)$_POST['capacity'],
+                    ':image' => $result['image']
+                ];
+                $this->model->create($data);
+                header("Location: " . BASE_URL . "/public/event.php?page=list");
+                exit;
+            }
+
+            $errors = $result['errors'];
+            $event = array_merge($event, $_POST);
+            if (!empty($_FILES['image']['name'])) {
+                $event['image'] = $_FILES['image']['name'];
+            }
         }
 
-        $data = [
-            ':title' => $post['title'],
-            ':description' => $post['description'],
-            ':event_date' => $post['event_date'],
-            ':capacity' => (int)$post['capacity'],
-            ':image' => $result['image']
-        ];
-
-        $this->model->create($data);
-        return [];
+        include __DIR__ . '/../view/events/create.php';
     }
 
-
-        public function edit($id, $post, $files) {
+    public function edit($id) {
+        if (!$id) die("Event ID required");
         $event = $this->model->getById($id);
         if (!$event) die("Event not found");
 
-        // Validate event data and handle image
-        $result = Validation::validateEvent($post, $files['image'] ?? null);
+        $errors = [];
 
-        if (!empty($result['errors'])) {
-            return $result['errors']; // flat array
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $result = Validation::validateEvent($_POST, $_FILES['image'] ?? null);
+
+            if (empty($result['errors'])) {
+                $image = $result['image'] === 'default_event.png' && !empty($event['image']) 
+                            ? $event['image'] 
+                            : $result['image'];
+
+                $data = [
+                    ':title' => $_POST['title'],
+                    ':description' => $_POST['description'],
+                    ':event_date' => $_POST['event_date'],
+                    ':capacity' => (int)$_POST['capacity'],
+                    ':image' => $image
+                ];
+
+                $this->model->update($id, $data);
+                header("Location: " . BASE_URL . "/public/event.php?page=show&id=$id");
+                exit;
+            }
+
+            $errors = $result['errors'];
         }
 
-        // Use uploaded image or keep existing
-        $image = $result['image'] === 'default_event.png' && !empty($event['image']) 
-                    ? $event['image'] 
-                    : $result['image'];
-
-        $data = [
-            ':title' => $post['title'],
-            ':description' => $post['description'],
-            ':event_date' => $post['event_date'],
-            ':capacity' => (int)$post['capacity'],
-            ':image' => $image
-        ];
-
-        $this->model->update($id, $data);
-
-        return []; 
+        include __DIR__ . '/../view/events/edit.php';
     }
 
     public function delete($id) {
+        if (!$id) die("Event ID required");
         $this->model->delete($id);
-        return true;
-    }
-
-    private function handleImage($file) {
-        $imageName = 'default_event.png';
-        if ($file && !empty($file['name'])) {
-            $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-            $imageName = time() . '_' . basename($file['name']);
-            move_uploaded_file($file['tmp_name'], __DIR__ . '/../view/events/upload/' . $imageName);
-        }
-        return $imageName;
+        header("Location: " . BASE_URL . "/public/event.php?page=list");
+        exit;
     }
 }
-?>
