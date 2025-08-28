@@ -5,7 +5,6 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/project/config/config.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/project/app/controller/AdminController.php';
-session_start();
 
 // Middleware: ensure admin logged in
 if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
@@ -16,6 +15,9 @@ if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
 $limit = 10; // events per page
 $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
 $offset = ($page - 1) * $limit;
+
+// Optional success message
+$msg = $_GET['msg'] ?? null;
 
 // Total events
 $totalStmt = $pdo->query("SELECT COUNT(*) FROM events");
@@ -39,7 +41,18 @@ $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 <div class="container mt-5">
+    <?php if (isset($_GET['msg'])): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <?= htmlspecialchars($_GET['msg']) ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
+
     <h1 class="mb-4">All Events</h1>
+
+    <?php if ($msg): ?>
+        <div class="alert alert-success"><?= htmlspecialchars($msg) ?></div>
+    <?php endif; ?>
 
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
@@ -59,9 +72,13 @@ $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <td><?= $event['event_date'] ?></td>
                 <td><?= $event['capacity'] ?></td>
                 <td>
-                    <!-- Delete modal button -->
-                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $event['id'] ?>">Delete</button>
+                    <!-- Edit button -->
+                    <a href="edit_event.php?event_id=<?= $event['id'] ?>" class="btn btn-sm btn-primary">Edit</a>
 
+                    <!-- Delete button triggers modal -->
+                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $event['id'] ?>">Delete</button>
+
+                    <!-- Delete Modal -->
                     <div class="modal fade" id="deleteModal<?= $event['id'] ?>" tabindex="-1">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -107,7 +124,6 @@ $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endif; ?>
         </ul>
     </nav>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>

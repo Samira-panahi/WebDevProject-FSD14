@@ -34,6 +34,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo BASE_URL; ?>/public/profile.php">My Profile</a>
                     </li>
+                    <!-- samira --- Admin Dashboard link for admin users only -->
+                    <?php if (Session::has('user_role') && Session::get('user_role') === 'admin'): ?>
+                     <li class="nav-item">
+                     <a class="nav-link" href="<?php echo BASE_URL; ?>/public/admin.php">Admin Dashboard</a>
+                    </li>
+                    <?php endif; ?>
+
                     <li class="nav-item">
                         <form action="<?php echo BASE_URL; ?>/public/logout.php" method="POST" class="d-flex">
                             <button type="submit" class="btn btn-link nav-link">Logout</button>

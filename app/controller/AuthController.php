@@ -84,7 +84,7 @@ class AuthController {
 
             if ($user['role'] === 'admin') {
                 // Redirect for admin users
-                header('Location: ' . BASE_URL . '/public/admin/dashboard.php');
+                header("Location: " . BASE_URL . "/public/profile.php");
             } else {
                 // Redirect for regular users to their profile
                 header('Location: ' . BASE_URL . '/public/profile.php');
