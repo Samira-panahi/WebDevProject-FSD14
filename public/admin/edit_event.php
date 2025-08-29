@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $updateStmt = $pdo->prepare("UPDATE events SET title = ?, event_date = ?, capacity = ? WHERE id = ?");
     $updateStmt->execute([$title, $date, $capacity, $event_id]);
 
-    header("Location: ../events.php?msg=Event updated successfully");
+    header("Location: admin_events.php?msg=Event updated successfully");
     exit;
 }
 ?>
@@ -53,9 +53,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" name="title" class="form-control" value="<?= htmlspecialchars($event['title']) ?>" required>
         </div>
         <div class="mb-3">
-            <label class="form-label">Date</label>
-            <input type="date" name="event_date" class="form-control" value="<?= $event['event_date'] ?>" required>
+        <label class="form-label">Date & Time</label>
+        <input type="datetime-local" name="event_date" class="form-control" 
+        value="<?= date('Y-m-d\TH:i', strtotime($event['event_date'])) ?>" required>
         </div>
+
         <div class="mb-3">
             <label class="form-label">Capacity</label>
             <input type="number" name="capacity" class="form-control" value="<?= $event['capacity'] ?>" required>

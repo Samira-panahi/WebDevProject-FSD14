@@ -37,7 +37,7 @@
                     <!-- samira --- Admin Dashboard link for admin users only -->
                     <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
                      <li class="nav-item">
-                     <a class="nav-link" href="<?php echo BASE_URL; ?>/public/admin.php">Admin Dashboard</a>
+                     <a class="nav-link" href="<?php echo BASE_URL; ?>/public/admin/admin.php">Admin Dashboard</a>
                     </li>
                     <?php endif; ?>
 
