@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $stmt = $pdo->prepare("UPDATE users SET first_name = ?, last_name = ?, email = ?, role = ? WHERE id = ?");
     if ($stmt->execute([$first_name, $last_name, $email, $role, $user_id])) {
-        header("Location: ../admin_users.php?msg=User+updated+successfully");
+        header("Location: admin_users.php?msg=User+updated+successfully");
         exit;
     } else {
         $error = "Failed to update user.";

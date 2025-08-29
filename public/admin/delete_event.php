@@ -18,5 +18,5 @@ $stmt = $pdo->prepare("DELETE FROM events WHERE id = ?");
 $stmt->execute([$event_id]);
 
 // Redirect back to admin events page
-header("Location: admin_event.php?msg=Event deleted successfully");
+header("Location: admin_events.php?msg=Event deleted successfully");
 exit;
