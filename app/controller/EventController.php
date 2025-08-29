@@ -128,7 +128,7 @@ class EventController
         include __DIR__ . '/../view/events/my_events.php';
     }
 
-        public function search() {
+    public function search() {
     $query = $_GET['q'] ?? '';
 
     if (empty($query)) {
