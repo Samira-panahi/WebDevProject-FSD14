@@ -17,6 +17,13 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
+            <form action="<?= BASE_URL ?>/public/event.php" method="get" class="search-form">
+                <input type="hidden" name="page" value="search">
+                <input type="text" name="q" placeholder="Search events..." required>
+                <button type="submit">Search</button>
+            </form>
+
+
             <div class="collapse navbar-collapse" id="mainNavbar">
                 <ul class="navbar-nav ms-auto">
 
