@@ -25,30 +25,6 @@ class Event
         return $stmt->fetch();
     }
 
-    // public function getAll()
-    // {
-    //     $stmt = $this->pdo->query("
-    //     SELECT e.*, u.name AS user_name, u.email AS user_email
-    //     FROM events e
-    //     JOIN users u ON e.user_id = u.id
-    //     ORDER BY e.event_date ASC
-    // ");
-    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    // }
-
-    // public function getById($id)
-    // {
-    //     $stmt = $this->pdo->prepare("
-    //     SELECT e.*, u.name AS user_name, u.email AS user_email
-    //     FROM events e
-    //     JOIN users u ON e.user_id = u.id
-    //     WHERE e.id = :id
-    // ");
-    //     $stmt->execute([':id' => $id]);
-    //     return $stmt->fetch(PDO::FETCH_ASSOC);
-    // }
-
-
     //  Create event (requires user_id from session)
     public function create($data)
     {
