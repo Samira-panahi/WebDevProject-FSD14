@@ -12,8 +12,8 @@ include __DIR__ . '/../layout/header.php'; ?>
     <img src="<?= BASE_URL ?>/public/uploads/events/<?= $event['image'] ?>" width="300" class="img-thumbnail">
 </p>
 
-<a href="event.php?page=edit&id=<?= $event['id'] ?>" class="btn btn-warning">Edit</a>
-<a href="event.php?page=delete&id=<?= $event['id'] ?>" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+<a href="<?= BASE_URL ?>/app/view/rsvp/join.php" class="btn btn-warning">Join</a>
+
 <a href="event.php?page=list" class="btn btn-secondary">Back to List</a>
  
 <hr>
@@ -28,6 +28,7 @@ $eventId = $event['id'] ?? null;
 if ($eventId && isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
  
+    
     // Check if user already RSVP’d
     $check = $pdo->prepare("SELECT * FROM rsvps WHERE user_id = ? AND event_id = ?");
     $check->execute([$userId, $eventId]);
