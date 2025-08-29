@@ -1,16 +1,14 @@
-<?php include __DIR__ . '/../layout/header.php'; ?>
 
-
-<h1 class="mb-4">Events</h1>
+<h2 class="mb-4">Events</h2>
 
 <div class="row">
     <?php foreach($events as $e): ?>
-        <div class="col-md-4 mb-4">
+        <div class="col-md-3 mb-4">
             <div class="card shadow-sm h-100">
-                <img src="<?= BASE_URL ?>/public/uploads/events/<?=$e['image']?>" 
+                <a href="event.php?page=show&id=<?=$e['id']?>"><img src="<?= BASE_URL ?>/public/uploads/events/<?=$e['image']?>" 
                      class="card-img-top" 
                      alt="<?=htmlspecialchars($e['title'])?>" 
-                     style="height:200px; object-fit:cover;">
+                     style="height:200px; object-fit:cover;"></a>
 
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title"><?=htmlspecialchars($e['title'])?></h5>
@@ -20,11 +18,9 @@
                     <div class="mt-auto">
                         <a href="event.php?page=show&id=<?=$e['id']?>" 
                            class="btn btn-info btn-sm">View</a>
-                        <a href="event.php?page=edit&id=<?=$e['id']?>" 
-                           class="btn btn-warning btn-sm">Edit</a>
-                        <a href="event.php?page=delete&id=<?=$e['id']?>" 
-                           class="btn btn-danger btn-sm"
-                           onclick="return confirm('Are you sure?')">Delete</a>
+                        <a href="<?= BASE_URL ?>/app/view/rsvp/join.php" 
+                           class="btn btn-warning btn-sm">Join</a>
+                
                     </div>
                 </div>
             </div>
@@ -32,5 +28,5 @@
     <?php endforeach; ?>
 </div>
 
-<?php include __DIR__ . '/../layout/footer.php'; ?>
+
 
