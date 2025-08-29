@@ -11,12 +11,12 @@ $id   = $_GET['id'] ?? null;
 
 $authMiddleware = new AuthMiddleware();
 
-$authMiddleware->handle();
+
 
 require_once __DIR__ . '/../app/controller/EventController.php';
 $controller = new EventController($pdo);
 
-switch($page) {
+switch ($page) {
     case 'list':
         $controller->index();
         break;
@@ -26,24 +26,54 @@ switch($page) {
         break;
 
     case 'create':
+        $authMiddleware->handle();
         $controller->create();
         break;
 
     case 'edit':
+        $authMiddleware->handle();
         $controller->edit($id);
         break;
 
     case 'my_events':
+        $authMiddleware->handle();
         $controller->myEvents();
         break;
 
     case 'delete':
+        $authMiddleware->handle();
         $controller->delete($id);
         break;
 
-    case 'search':   
-        $controller->search();
+    case 'rsvp_join':
+        require_once __DIR__ . '/../app/controller/RsvpController.php';
+        $userId = $_SESSION['user_id'] ?? null;
+        $eventId = $_POST['event_id'] ?? null;
+        if ($userId && $eventId) {
+            $rsvpController = new RsvpController();
+            $message = $rsvpController->join($userId, $eventId);
+            header("Location: event.php?page=show&id=$eventId&msg=" . urlencode($message));
+            exit;
+        } else {
+            die("Invalid request.");
+        }
         break;
+
+    case 'rsvp_cancel':
+        require_once __DIR__ . '/../app/controller/RsvpController.php';
+        $userId = $_SESSION['user_id'] ?? null;
+        $eventId = $_POST['event_id'] ?? null;
+        if ($userId && $eventId) {
+            $rsvpController = new RsvpController();
+            $message = $rsvpController->cancel($userId, $eventId);
+            header("Location: event.php?page=show&id=$eventId&msg=" . urlencode($message));
+            exit;
+        } else {
+            die("Invalid request.");
+        }
+        break;
+
+
 
     default:
         echo "Page not found.";

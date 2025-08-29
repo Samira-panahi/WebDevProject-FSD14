@@ -1,13 +1,9 @@
 <?php
-
-require_once $_SERVER['DOCUMENT_ROOT'] . '/project/app/controller/RsvpController.php';
-
-// require_once __DIR__ . '/../../Helpers/Session.php'; 
-
 session_start();
+require_once $_SERVER['DOCUMENT_ROOT'] . '/WebDevProject-FSD14/app/controller/RsvpController.php';
 
 $userId = $_SESSION['user_id'] ?? null;
-$eventId = $_GET['event_id'] ?? null;
+$eventId = $_POST['event_id'] ?? null;
 
 if (!$userId || !$eventId) {
     die("Invalid request.");
@@ -16,5 +12,6 @@ if (!$userId || !$eventId) {
 $rsvpController = new RsvpController();
 $message = $rsvpController->join($userId, $eventId);
 
-echo $message;
-echo "<br><a href='../events/show.php?id=$eventId'>Back to event</a>";
+// Redirect back to the event page with a message
+header("Location: ../../public/event.php?page=show&id=$eventId&msg=" . urlencode($message));
+exit;

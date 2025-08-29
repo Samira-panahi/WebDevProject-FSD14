@@ -2,10 +2,12 @@
 
 require_once __DIR__ . '/../../config/config.php';
 
-class RsvpController {
+class RsvpController
+{
 
     // Join RSVP
-    public function join($userId, $eventId) {
+    public function join($userId, $eventId)
+    {
         global $pdo;
 
         // Check if already joined
@@ -24,7 +26,8 @@ class RsvpController {
     }
 
     // Cancel RSVP
-    public function cancel($userId, $eventId) {
+    public function cancel($userId, $eventId)
+    {
         global $pdo;
 
         $stmt = $pdo->prepare("DELETE FROM rsvps WHERE user_id = ? AND event_id = ?");
@@ -35,15 +38,17 @@ class RsvpController {
     }
 
     // Get all participants of an event
-    public function getParticipants($eventId) {
+    public function getParticipants($eventId)
+    {
         global $pdo;
 
         $stmt = $pdo->prepare("
-            SELECT users.id, users.name, users.profile_image 
+            SELECT users.id, users.first_name, users.last_name, users.profile_picture
             FROM rsvps
             INNER JOIN users ON rsvps.user_id = users.id
             WHERE rsvps.event_id = ?
         ");
+
         $stmt->execute([$eventId]);
         return $stmt->fetchAll();
     }

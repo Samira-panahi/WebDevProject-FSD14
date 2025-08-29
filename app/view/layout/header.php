@@ -31,9 +31,17 @@
                         <a class="nav-link" href="<?php echo BASE_URL; ?>/public/">Home</a>
                     </li>
 
+                    <!-- <li class="nav-item">
+                            <a class="nav-link" href="<?= BASE_URL ?>/public/event.php?page=list">Events</a>
+                        </li> -->
+
                     <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] !== 'admin'): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= BASE_URL ?>/public/event.php?page=my_events">My Events</a>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= BASE_URL ?>/public/event.php?page=list">Events</a>
                         </li>
                     <?php endif; ?>
 
