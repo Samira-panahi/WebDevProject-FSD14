@@ -1,7 +1,7 @@
 <?php
 // Admin (Samira's part)
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/project/config/config.php';
+require_once __DIR__ . '/../../config/config.php';
 
 class AdminController {
 

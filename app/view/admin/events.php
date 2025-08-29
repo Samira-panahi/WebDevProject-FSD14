@@ -3,8 +3,8 @@
 // ADMIN EVENTS PAGE WITH PAGINATION (Samira's part)
 // ===============================
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/project/config/config.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/project/app/controller/AdminController.php';
+require_once __DIR__ . '/../../../config/config.php';
+require_once __DIR__ . '/../../controller/AdminController.php';
 
 // Middleware: ensure admin logged in
 if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {

@@ -1,5 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/project/config/config.php';
+
+require_once __DIR__ . '/../../../config/config.php';
 
 // Middleware: ensure admin
 if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {

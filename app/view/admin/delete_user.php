@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../app/helpers/Session.php';
+require_once __DIR__ . '/../../../config/config.php';
+require_once __DIR__ . '/../../helpers/Session.php';
 
 Session::start();
 

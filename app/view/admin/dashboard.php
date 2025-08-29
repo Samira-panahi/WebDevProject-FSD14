@@ -1,10 +1,8 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/project/app/controller/AdminController.php';
+require_once __DIR__ . '/../../controller/AdminController.php';
 
-
-// Middleware: ensure admin logged in
 if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
-    header("Location: /project/public/login.php");
+    header("Location: " . BASE_URL . "/public/login.php");
     exit;
 }
 
