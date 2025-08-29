@@ -9,76 +9,68 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
+    <div class="container-fluid">
 
-            <a class="navbar-brand" href="<?php echo BASE_URL; ?>/public/">Menu</a>
+        <a class="navbar-brand" href="<?= BASE_URL ?>/public/">Menu</a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <form action="<?= BASE_URL ?>/public/event.php" method="get" class="search-form">
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= BASE_URL ?>/public/">Home</a>
+                </li>
+
+                <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] !== 'admin'): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= BASE_URL ?>/public/event.php?page=my_events">My Events</a>
+                    </li>
+                <?php else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= BASE_URL ?>/public/event.php?page=list">Events</a>
+                    </li>
+                <?php endif; ?>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= BASE_URL ?>/public/event.php?page=create">Create Event</a>
+                </li>
+            </ul>
+
+            <!-- Search form -->
+            <form class="d-flex me-3" action="<?= BASE_URL ?>/public/event.php" method="get">
                 <input type="hidden" name="page" value="search">
-                <input type="text" name="q" placeholder="Search events..." required>
-                <button type="submit">Search</button>
+                <input class="form-control me-2" type="search" name="q" placeholder="Search events..." aria-label="Search" required>
+                <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
 
-
-            <div class="collapse navbar-collapse" id="mainNavbar">
-                <ul class="navbar-nav ms-auto">
-
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <?php if (isset($_SESSION['user_id'])): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo BASE_URL; ?>/public/">Home</a>
+                        <a class="nav-link" href="<?= BASE_URL ?>/public/profile.php">My Profile</a>
                     </li>
-
-                    <!-- <li class="nav-item">
-                            <a class="nav-link" href="<?= BASE_URL ?>/public/event.php?page=list">Events</a>
-                        </li> -->
-
-                    <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] !== 'admin'): ?>
+                    <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= BASE_URL ?>/public/event.php?page=my_events">My Events</a>
-                        </li>
-                    <?php else: ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= BASE_URL ?>/public/event.php?page=list">Events</a>
+                            <a class="nav-link" href="<?= BASE_URL ?>/public/admin/admin.php">Admin Dashboard</a>
                         </li>
                     <?php endif; ?>
-
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= BASE_URL ?>/public/event.php?page=create">Create Event</a>
+                        <form action="<?= BASE_URL ?>/public/logout.php" method="POST" class="d-flex">
+                            <button type="submit" class="btn btn-link nav-link">Logout</button>
+                        </form>
                     </li>
-
-                    <?php // Check if user is logged in by verifying session variable to display appropriate options in navbar 
-                    ?>
-                    <?php if (isset($_SESSION['user_id'])): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo BASE_URL; ?>/public/profile.php">My Profile</a>
-                        </li>
-                        <!-- samira --- Admin Dashboard link for admin users only -->
-                        <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?php echo BASE_URL; ?>/public/admin/admin.php">Admin Dashboard</a>
-                            </li>
-                        <?php endif; ?>
-
-                        <li class="nav-item">
-                            <form action="<?php echo BASE_URL; ?>/public/logout.php" method="POST" class="d-flex">
-                                <button type="submit" class="btn btn-link nav-link">Logout</button>
-                            </form>
-                        </li>
-                    <?php else: ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo BASE_URL; ?>/public/login.php">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo BASE_URL; ?>/public/register.php">Register</a>
-                        </li>
-                    <?php endif; ?>
-
-                </ul>
-            </div>
-
+                <?php else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= BASE_URL ?>/public/login.php">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= BASE_URL ?>/public/register.php">Register</a>
+                    </li>
+                <?php endif; ?>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
+
     <div class="container">
