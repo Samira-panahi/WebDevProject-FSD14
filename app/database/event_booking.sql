@@ -43,3 +43,18 @@ CHANGE COLUMN profile_image profile_picture VARCHAR(255) DEFAULT 'default.png';
 ALTER TABLE users
 MODIFY COLUMN profile_picture VARCHAR(255) DEFAULT 'default.png';
 
+-- Modifications to users table (Belinda's part)
+ALTER TABLE events ADD COLUMN user_id INT NULL;
+
+--  Linking event to the users table
+ALTER TABLE events 
+ADD CONSTRAINT fk_events_user 
+FOREIGN KEY (user_id) REFERENCES users(id) 
+ON DELETE CASCADE;
+
+-- Updating existing rows with a valid user_id and
+-- assigning existing rows to the admin (id = 1)
+UPDATE events SET user_id = 1 WHERE user_id IS NULL;
+
+ALTER TABLE events MODIFY user_id INT NOT NULL;
+
