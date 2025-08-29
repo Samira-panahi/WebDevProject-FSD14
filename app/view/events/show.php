@@ -2,13 +2,13 @@
 
 <!-- Event FEATURE (Belinda's part) -->
 <h1><?= htmlspecialchars($event['title']) ?></h1>
-<p><strong>Date:</strong> <?= $event['event_date'] ?></p>
-<p><strong>Capacity:</strong> <?= $event['capacity'] ?></p>
+<p><strong>Date:</strong> <?= htmlspecialchars($event['event_date']) ?></p>
+<p><strong>Capacity:</strong> <?= htmlspecialchars($event['capacity']) ?></p>
 <p><strong>Description:</strong></p>
 <p><?= nl2br(htmlspecialchars($event['description'])) ?></p>
-<p>
-    <img src="<?= BASE_URL ?>/public/uploads/events/<?= $event['image'] ?>" width="300" class="img-thumbnail">
-</p>
+<img src="<?= BASE_URL ?>/public/uploads/events/<?= htmlspecialchars($event['image']) ?>" width="300" class="img-thumbnail">
+
+<hr>
 
 <a href="<?= BASE_URL ?>/app/view/rsvp/join.php" class="btn btn-warning">Join</a>
 <a href="event.php?page=list" class="btn btn-secondary">Back to List</a>
@@ -72,3 +72,4 @@ if ($eventId) {
 ?>
 
 <?php include __DIR__ . '/../layout/footer.php'; ?>
+
