@@ -117,4 +117,20 @@ class EventController {
         $events = $this->model->getByUser($_SESSION['user_id']);
         include __DIR__ . '/../view/events/my_events.php';
     }
+
+        public function search() {
+    $query = $_GET['q'] ?? '';
+
+    if (empty($query)) {
+        $results = [];
+    } else {
+        $results = $this->model->searchByTitle($query);
+    }
+
+    include __DIR__ . '/../view/events/search_results.php';
 }
+
+
+}
+
+

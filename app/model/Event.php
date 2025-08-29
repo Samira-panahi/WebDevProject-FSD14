@@ -68,4 +68,13 @@ class Event
         $stmt->execute([':user_id' => $userId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+        // Searching all events by title 
+    public function searchByTitle($query)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM events WHERE title LIKE :query ORDER BY event_date ASC");
+        $stmt->execute([':query' => "%$query%"]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
+

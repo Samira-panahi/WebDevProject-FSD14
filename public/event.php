@@ -41,6 +41,10 @@ switch($page) {
         $controller->delete($id);
         break;
 
+    case 'search':   
+        $controller->search();
+        break;
+
     default:
         echo "Page not found.";
         break;
