@@ -15,7 +15,9 @@ class EventController
     public function index()
     {
         $events = $this->model->getAll();
+        include_once __DIR__ . '/../view/layout/header.php';
         include __DIR__ . '/../view/events/list.php';
+        include_once __DIR__ . '/../view/layout/footer.php';
     }
 
     public function show($id)
@@ -23,6 +25,20 @@ class EventController
         if (!$id) die("Event ID required");
         $event = $this->model->getById($id);
         if (!$event) die("Event not found");
+
+        require_once __DIR__ . '/RsvpController.php';
+        $rsvpController = new RsvpController();
+
+        $participants = $rsvpController->getParticipants($id);
+
+        // Check if user has already RSVP’d
+        $alreadyJoined = false;
+        if (isset($_SESSION['user_id'])) {
+            global $pdo; // since RsvpController uses $pdo
+            $stmt = $pdo->prepare("SELECT * FROM rsvps WHERE user_id = ? AND event_id = ?");
+            $stmt->execute([$_SESSION['user_id'], $id]);
+            $alreadyJoined = $stmt->fetch();
+        }
         include __DIR__ . '/../view/events/show.php';
     }
 
