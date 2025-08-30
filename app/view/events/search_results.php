@@ -1,3 +1,5 @@
+<?php include __DIR__ . '/../layout/header.php'; ?>
+
 <h2 class="my-4">Search Results for: "<?= htmlspecialchars($_GET['q'] ?? '') ?>"</h2>
 
 <?php if (!empty($results)): ?>
@@ -19,3 +21,5 @@
 <?php else: ?>
     <p>No events found for your search.</p>
 <?php endif; ?>
+
+<?php include __DIR__ . '/../layout/footer.php'; ?>

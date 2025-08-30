@@ -25,6 +25,10 @@ switch ($page) {
         $controller->show($id);
         break;
 
+    case 'search':
+        $controller->search();
+        break;
+
     case 'create':
         $authMiddleware->handle();
         $controller->create();
